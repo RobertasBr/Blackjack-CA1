@@ -14,6 +14,11 @@ namespace Blackjack_CA1
         static int playerNumber;
         static int dealerNumber;
         static int card;
+
+        static int Wins = 0;
+        static int Losses = 0;
+        static int Ties = 0;
+        
         static string spacing = new string('-', 35);
 
         //Random declared here to have a different seed everytime
@@ -46,7 +51,7 @@ namespace Blackjack_CA1
                     }
                     else
                     {
-                        //Get dealer cards
+                        //Get dealer cards  //Replace with keep going until someone losses
                         GetSecondNumbers();
 
                         if (action == "h")
@@ -64,12 +69,14 @@ namespace Blackjack_CA1
                             }
                             else
                             {
-                                //Compares your and dealer cards
+                                //Compares your and dealer cards //Replace with keep going until someone losses
                                 CompareCards();
                             }
                         }
                     }
                 }
+
+                ShowStatistics();
 
                 //Allows user to stop loop
                 Console.WriteLine($"{spacing}\nWould you like to go again? (y/n): ");
@@ -132,23 +139,29 @@ namespace Blackjack_CA1
 
             if (playerNumber > dealerNumber)
             {
+                //Win situation
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"{playerNumber} is greater than {dealerNumber}");
                 Console.ForegroundColor = ConsoleColor.White;
+                Wins++;
                 return true;
             }
             if (playerNumber < dealerNumber)
             {
+                //Loss situation
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{playerNumber} is less than {dealerNumber}");
                 Console.ForegroundColor = ConsoleColor.White;
+                Losses++;
                 return false;
             }
             else
             {
+                //Tie situation
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"{playerNumber} and {dealerNumber} are equal");
+                Console.WriteLine($"{playerNumber} and {dealerNumber} are tied");
                 Console.ForegroundColor = ConsoleColor.White;
+                Ties++;
                 return false;
             }
         }
@@ -156,11 +169,24 @@ namespace Blackjack_CA1
         {
             int hitCard = RandomCard();
 
+            //Shows what cards got hit
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"Hit card: {hitCard}\n");
             Console.ForegroundColor = ConsoleColor.White;
 
             return hitCard;
+        }
+        
+        static void ShowStatistics()
+        {
+            Console.WriteLine($"\nYou currently have:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"    Wins: {Wins}");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"    Losses: {Losses}");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"    Ties: {Ties}");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
@@ -168,12 +194,6 @@ namespace Blackjack_CA1
 
 //Add class for cards
 
-//Comment
-
 //Add getting actuals cards
-
-//>21 Exception Loss
-
-//Add win/loss stats
 
 //Debugging 
